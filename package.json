@@ -1,0 +1,24 @@
+{
+  "name": "bookapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kuppilisatishkumar/ReSTful-API-Practice.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kuppilisatishkumar/ReSTful-API-Practice/issues"
+  },
+  "homepage": "https://github.com/kuppilisatishkumar/ReSTful-API-Practice#readme",
+  "dependencies": {
+    "express": "^4.15.3",
+    "jscs": "^3.0.7",
+    "jshint": "^2.9.5"
+  }
+}
