@@ -17,8 +17,12 @@
   },
   "homepage": "https://github.com/kuppilisatishkumar/ReSTful-API-Practice#readme",
   "dependencies": {
+    "body-parser": "^1.17.2",
     "express": "^4.15.3",
+    "gulp": "^3.9.1",
+    "gulp-nodemon": "^2.2.1",
     "jscs": "^3.0.7",
-    "jshint": "^2.9.5"
+    "jshint": "^2.9.5",
+    "mongoose": "^4.10.8"
   }
 }
