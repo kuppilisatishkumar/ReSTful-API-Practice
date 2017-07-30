@@ -38,30 +38,38 @@ bookRouter.route('/Books')
         });
         //res.json(responseJson);
     });
-
-bookRouter.route('/Books/:bookId') //retrieving by Id
-    .get(function(req,res){
-        //var responseJson = {hello : "This is my API"};
-        Book.findById(req.params.bookId,function(err,book){ 
+bookRouter.use('/Books/:bookId',function(req,res,next){ // middleware: takes the req will add its extra functionality and sends req
+    Book.findById(req.params.bookId,function(err,book){ 
             if(err)
                 res.status(500).send(err);
+            else if(book){
+                req.book = book;
+                next();
+            }
             else
-                res.json(book);
+                res.status(404).send('No book found for given Id');
         });
+});
+bookRouter.route('/Books/:bookId') //retrieving by Id
+    .get(function(req,res){
+        res.json(req.book);
+        // below code's functionality is replaced by middleware that implemented above
+        // Book.findById(req.params.bookId,function(err,book){ 
+        //     if(err)
+        //         res.status(500).send(err);
+        //     else
+        //         res.json(book);
+        // });
         //res.json(responseJson);
     })
     .put(function(req,res){
-        Book.findById(req.params.bookId,function(err,book){ 
-            if(err)
-                res.status(500).send(err);
-            else
-                book.title = req.body.title;
-                book.author = req.body.author;
-                book.genre = req.body.genre;
-                book.read = req.body.read;
-                book.save();
-                res.json(book);
-        }); 
+        //findById is required anymore as its done by middleware
+        req.book.title = req.body.title;
+        req.book.author = req.body.author;
+        req.book.genre = req.body.genre;
+        req.book.read = req.body.read;
+        req.book.save();
+        res.json(req.book);
     });
 
 app.use('/api',bookRouter);
