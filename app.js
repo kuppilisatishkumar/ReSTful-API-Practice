@@ -1,7 +1,7 @@
 var express = require("express");
 
 var mongoose = require("mongoose");
-//mongoose.Promise = global.Promise;
+mongoose.Promise = global.Promise;
 
 var bodyParser = require('body-parser');
 
