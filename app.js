@@ -26,13 +26,42 @@ bookRouter.route('/Books')
     })
     .get(function(req,res){
         //var responseJson = {hello : "This is my API"};
-        Book.find(function(err,books){
+        var query = {};
+        if(req.query.genre){ //invalid queries will be avoided with IF condition
+            query.genre = req.query.genre;
+        }
+        Book.find(query,function(err,books){
             if(err)
-                console.log(err);
+                res.status(500).send(err);
             else
                 res.json(books);
         });
         //res.json(responseJson);
+    });
+
+bookRouter.route('/Books/:bookId') //retrieving by Id
+    .get(function(req,res){
+        //var responseJson = {hello : "This is my API"};
+        Book.findById(req.params.bookId,function(err,book){ 
+            if(err)
+                res.status(500).send(err);
+            else
+                res.json(book);
+        });
+        //res.json(responseJson);
+    })
+    .put(function(req,res){
+        Book.findById(req.params.bookId,function(err,book){ 
+            if(err)
+                res.status(500).send(err);
+            else
+                book.title = req.body.title;
+                book.author = req.body.author;
+                book.genre = req.body.genre;
+                book.read = req.body.read;
+                book.save();
+                res.json(book);
+        }); 
     });
 
 app.use('/api',bookRouter);
